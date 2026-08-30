@@ -73,7 +73,7 @@ export interface AnchorDetection extends NormalizedBox {
   detected: boolean;
   confidence: Confidence;
   /** Optional method reported by the detector (template, color, edge, ml...). */
-  method?: string;
+  method?: string | undefined;
 }
 
 export type HudElementId =
@@ -115,10 +115,10 @@ export interface HudRegion extends NormalizedBox, RelativeBox {
   detected: boolean;
   confidence: Confidence;
   /** Parsed value when the backend ran OCR / bar analysis on the region. */
-  value?: number | string | null;
+  value?: number | string | null | undefined;
   /** 0..1 fill ratio for bar-like elements. */
-  ratio?: number | null;
-  notes?: string;
+  ratio?: number | null | undefined;
+  notes?: string | undefined;
 }
 
 export interface FrameMeta {
@@ -136,7 +136,7 @@ export interface FrameDetection {
   anchors: AnchorDetection[];
   regions: HudRegion[];
   /** Wall-clock ms the backend spent on this frame. */
-  processingMs?: number;
+  processingMs?: number | undefined;
 }
 
 /* ------------------------------------------------------------------ */
@@ -204,9 +204,9 @@ export interface AnalysisProgress {
   state: AnalysisState;
   /** null when the backend does not report real progress. Never faked. */
   progress: number | null;
-  message?: string;
-  analysisId?: string;
-  error?: string;
+  message?: string | undefined;
+  analysisId?: string | undefined;
+  error?: string | undefined;
 }
 
 export type MatchResult = "WIN" | "LOSS" | "DRAW";
@@ -245,7 +245,7 @@ export interface GameEvent {
   frame: number;
   player: "P1" | "P2" | "NONE";
   round: number;
-  value?: number;
+  value?: number | undefined;
   description: string;
   confidence: Confidence;
 }
@@ -288,7 +288,7 @@ export interface AnalysisSummary {
   match: MatchInfo;
   state: AnalysisState;
   videoUrl: string | null;
-  thumbnailUrl?: string | null;
+  thumbnailUrl?: string | null | undefined;
   highlightCount: number;
   eventCount: number;
   createdAt: string;
@@ -310,10 +310,10 @@ export type Priority = "HIGH" | "MEDIUM" | "LOW";
 
 export interface CoachEvidence {
   summary: string;
-  analysisId?: string;
-  eventIds?: string[];
-  metric?: string;
-  value?: string;
+  analysisId?: string | undefined;
+  eventIds?: string[] | undefined;
+  metric?: string | undefined;
+  value?: string | undefined;
 }
 
 export interface CoachFinding {
@@ -329,7 +329,7 @@ export interface TrainingExercise {
   title: string;
   detail: string;
   durationMinutes: number;
-  relatedFindingId?: string;
+  relatedFindingId?: string | undefined;
 }
 
 export interface CoachReport {

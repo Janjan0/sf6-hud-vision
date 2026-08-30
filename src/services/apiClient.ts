@@ -11,7 +11,7 @@ import type { BackendStatus } from "@/types/streammind";
 
 const STORAGE_KEY = "streammind.backendUrl";
 const DEFAULT_URL =
-  (typeof import.meta !== "undefined" && import.meta.env?.VITE_STREAMMIND_API) || "";
+  (typeof import.meta !== "undefined" && import.meta.env?.['VITE_STREAMMIND_API']) || "";
 
 let cachedStatus: BackendStatus = "checking";
 const listeners = new Set<(s: BackendStatus, url: string) => void>();
@@ -101,7 +101,7 @@ export async function apiRequest<T>(path: string, options: RequestOptions = {}):
         ...(isForm ? {} : { "Content-Type": "application/json" }),
         ...(headers ?? {}),
       },
-      body: body === undefined ? undefined : isForm ? (body as FormData) : JSON.stringify(body),
+      body: body === undefined ? null : isForm ? (body as FormData) : JSON.stringify(body),
     });
     if (!res.ok) throw new BackendUnavailableError(`Backend responded ${res.status}`);
     cachedStatus = "online";
